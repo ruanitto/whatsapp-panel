@@ -160,7 +160,7 @@ força a conexão com a WhatsApp Web para ser recarregada. Se você está irrita
 recarregar, você pode olhar para os complementos
 [Web Messenger para WhatsApp ™] (https://addons.mozilla.org/de/firefox/addon/whatsapp-web-messenger/)
 ou [WhatsApp Popup] (https://addons.mozilla.org/de/firefox/addon/whatsapp-popup/)
-(ambos não meus), que abre o WhatsApp ™ Web na barra lateral ou em uma janela separada,
+(ambos não meus), que abrem o WhatsApp™ Web na barra lateral ou em uma janela separada,
 respectivamente.
 
 * Quando o painel é fechado, enquanto o texto é digitado, mas não enviado, o texto será
