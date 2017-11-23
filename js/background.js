@@ -6,6 +6,22 @@
 window.addEventListener("message", receiveUnreadMessages, false);
 browser.webRequest.onHeadersReceived.addListener(removeResponseHeaders, {"urls": ["*://*.web.whatsapp.com/*"]}, ["blocking", "responseHeaders"]);
 
+var Ext={
+    os:null,
+    version:null,
+    win:"Alt+Shift+W",
+    mac:"Alt+Shift+W",
+    gotPlatformInfo:function(info){
+        Ext.os=info.os;
+        browser.runtime.getBrowserInfo(Ext.gotBrowserInfo);
+    },
+    gotBrowserInfo:function(info){
+      Ext.version=info.version; 
+      if(parseInt(Ext.version.split(".")[0])<57){
+          chrome.tabs.executeScript(null,{code:'alert("Please use '+(Ext.os=="mac" ? Ext.mac : Ext.win)+' combination to open up Painel for Messenger.\\n\\nThis is a limitation for the current Firefox '+Ext.version+' and it will resolve itself for upcoming Firefox 57. Sorry for inconvenience!");'});
+      }
+    }   
+}
 
 // Function definitions
 function receiveUnreadMessages(event) {
@@ -39,3 +55,21 @@ function removeResponseHeaders(details) {
     }
     return {"responseHeaders": headers};
 }
+
+//Sidebar
+var sidebar = browser.extension.getURL("/html/sidebar.html");
+
+function toggle(panel) {
+  if (panel !== sidebar) {
+    browser.sidebarAction.setPanel({panel: sidebar});
+  }
+}
+
+function onGot(sidebarUrl) {
+  if (sidebarUrl==sidebar) browser.sidebarAction.close();
+}
+
+browser.browserAction.onClicked.addListener(() => {
+    chrome.runtime.getPlatformInfo(Ext.gotPlatformInfo);
+    if(browser.sidebarAction.open) browser.sidebarAction.open();
+})
